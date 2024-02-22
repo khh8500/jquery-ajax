@@ -1,7 +1,5 @@
 {{> layout/header}}
-
 <div class="container p-5">
-
     <table class="table table-striped">
         <thead>
         <tr>
@@ -13,20 +11,18 @@
         </tr>
         </thead>
         <tbody id="board-box">
-
         </tbody>
     </table>
-
 </div>
 
 <script>
-    function del (boardId) {
+    function del(boardId){
         $.ajax({
             url: `/api/boards/${boardId}`,
             type: "delete"
-        }).done((res) => {
+        }).done((res)=>{
             $(`#board-${boardId}`).remove();
-        }).fail((res) => {
+        }).fail((res)=>{
             alert(res.responseJSON.msg);
             location.reload(); // f5
         });
@@ -37,9 +33,7 @@
     }).done((res) => {
         console.log("통신 성공");
         console.log(res);
-
         let boardList = res.body;
-
         boardList.forEach((board)=>{
             $("#board-box").append(render(board));
         });
@@ -47,7 +41,6 @@
         //console.log(res);
         alert(res.responseJSON.msg);
     });
-
     function render(board) {
         return `<tr id="board-${board.id}">
                     <td>${board.id}</td>
@@ -65,5 +58,4 @@
                 </tr>`;
     }
 </script>
-
 {{> layout/footer}}
